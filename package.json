@@ -1,0 +1,11 @@
+{
+  "name": "envio-cifras-pwa",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm --filter @envio-cifras/frontend run build && pnpm --filter @envio-cifras/server run build",
+    "typecheck": "pnpm -r run typecheck"
+  },
+  "devDependencies": { "typescript": "~5.9.2" }
+}
