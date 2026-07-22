@@ -5,6 +5,7 @@ import path from "node:path";
 export default defineConfig({
   plugins: [react()],
   root: import.meta.dirname,
+  base: "./",
   build: { outDir: path.resolve(import.meta.dirname, "dist/public"), emptyOutDir: true },
-  server: { host: "0.0.0.0", port: 4174 },
+  server: { host: "127.0.0.1", port: 4174 },
 });

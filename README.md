@@ -1,14 +1,23 @@
-# Envío de cifras PWA
+# Envío de Cifras Desktop
 
-Aplicación independiente para preparar lotes mensuales de cifras, localizar documentos en OneDrive y enviarlos por SMTP. No usa usuarios ni roles de BOOM.
+Aplicación Windows local para preparar y enviar declaraciones de ventas por centro. Usa SQLite en el perfil del usuario, OneDrive y Outlook mediante Microsoft Graph; no necesita dominio, Plesk, MySQL, SMTP, servidor ni login propio.
+
+## Requisito Microsoft
+
+Antes de generar el instalador, cree un registro de aplicación de tipo **cliente público de escritorio** en Microsoft Entra, compatible con cuentas de cualquier organización y cuentas personales. Añada el redirect URI `msal<CLIENT_ID>://auth`, habilite flujos de cliente público y conceda `User.Read`, `Files.Read`, `Mail.Send` y `offline_access`.
+
+Compile indicando el identificador público:
+
+```powershell
+$env:MICROSOFT_CLIENT_ID = "<CLIENT_ID>"
+pnpm package:win
+```
 
 ## Desarrollo
 
-1. Copia `.env.example` a `.env` y configura MySQL, SMTP y Microsoft Entra.
-2. Ejecuta `pnpm install` y después `pnpm build`.
-3. Inicia el servidor con `pnpm --filter @envio-cifras/server start`.
-4. Abre por primera vez `https://tu-dominio/access/<PWA_INSTALLATION_KEY>`.
+```powershell
+pnpm install
+pnpm dev
+```
 
-El frontend es una PWA instalable. El servidor crea las tablas `EC_*` en su base de datos exclusiva al arrancar; el SQL equivalente está en `scripts/sql/create-tables.sql`.
-
-Por ahora, Microsoft solo se usa para OneDrive. Los correos se mandan mediante el SMTP de la instalación y, mientras `EMAIL_MODE=test`, se redirigen a `EMAIL_TEST_RECIPIENT`.
+Los datos quedan en `%APPDATA%\Envio de Cifras\data`. Desde Origen de archivos se pueden crear y restaurar copias SQLite.

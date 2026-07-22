@@ -2,3 +2,7 @@ node_modules/
 dist/
 .env
 storage/
+release/
+dist-electron/
+frontend/dist/
+pnpm-*.log
